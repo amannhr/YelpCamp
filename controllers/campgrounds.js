@@ -13,7 +13,7 @@ module.exports.renderNewForm = (req, res) => {
     res.render('campgrounds/new');
 }
 
-module.exports.createCampground = async (req, res, next) => {
+module.exports.createCampground = async (req, res) => {
     const geoData = await geocoder.forwardGeocode({
         query: req.body.campground.location,
         limit: 1
@@ -27,7 +27,7 @@ module.exports.createCampground = async (req, res, next) => {
     res.redirect(`/campgrounds/${campground._id}`);
 }
 
-module.exports.showCampground = async (req, res, next) => {
+module.exports.showCampground = async (req, res) => {
     const campground = await Campground.findById(req.params.id).populate({
         path: 'reviews',
         populate: {
@@ -41,7 +41,7 @@ module.exports.showCampground = async (req, res, next) => {
     res.render('campgrounds/show', { campground });
 }
 
-module.exports.renderEditForm = async (req, res, next) => {
+module.exports.renderEditForm = async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findById(id);
     if (!campground) {
