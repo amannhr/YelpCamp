@@ -19,8 +19,8 @@ const reviewRoutes = require('./routes/reviews');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
-
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+// process.env.DB_URL || 
+const dbUrl = 'mongodb://localhost:27017/yelp-camp';
 
 mongoose.connect(dbUrl); // Encode special character in password
 
@@ -44,7 +44,8 @@ app.use(mongoSanitize({
     replaceWith : '_'
 }));
 
-const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
+// process.env.SECRET || 
+const secret = 'thisshouldbeabettersecret!';
 
 const store = MongoStore.create({
     mongoUrl : dbUrl,
@@ -154,6 +155,7 @@ app.use((err, req, res, next) => {
         err.message = 'Oh no, Something went Wrong!';
     res.status(statusCode).render('error', { err });
 })
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
